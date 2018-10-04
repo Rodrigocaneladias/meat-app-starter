@@ -1,10 +1,10 @@
 <!--INICIO DO CONTEUDO-->
 <section class="content-header">
 </section>
-
 <section class="content">
   <section class="invoice">
-    <form #form="ngForm" novalidate >
+
+    <form [formGroup]='orderForm' novalidate >
       <div class="row">
         <div class="col-xs-12">
           <h2 class="page-header">
@@ -12,23 +12,51 @@
           </h2>
         </div>
       </div>
-      <div class="row invoice-info">
+
+      <div class='row'>
+        <div class='col-xs-12 col-sm-9'>
+          <p class='lead'>Seus Dados:</p>
+        </div>
+        <div class='col-xs-12 col-sm-3'>  
+          <span *ngIf="orderForm.hasError('emailsNotMatch')" class="help-block pull-right has-error-block" ><i class="fa fa-remove"></i> Os emails não estão iguais.</span>          
+        </div>
+        <div class="col-sm-6 col-xs-12">
+          <mt-input-container errorMessage="Campo obrigatório com 5 caracteres" label="Nome">
+            <input formControlName="name" class="form-control" placeholder="Nome" autocomplete="off">
+          </mt-input-container>
+        </div>
+
+        <div class="col-sm-3 col-xs-12">
+          <mt-input-container errorMessage="Email inválido" label="Email">
+            <input formControlName="email" class="form-control" placeholder="Email"  autocomplete="off">
+          </mt-input-container>
+        </div>
+
+        <div class="col-sm-3 col-xs-12">
+            <mt-input-container errorMessage="Email inválido" label="Email">
+              <input formControlName="emailConfirmation" class="form-control" placeholder="Email"  autocomplete="off">
+            </mt-input-container>
+          </div>
+
+      </div>
+      
+      <div class="row">
         <div class="col-xs-12">
           <p class="lead">Endereço de Entrega:</p>
         </div>
         <div class="col-sm-6 col-xs-12">
           <mt-input-container errorMessage="Campo obrigatório com 5 caracteres" label="Endereço">
-            <input name="adress" class="form-control" ngModel required minlength="5" autocomplete="off">
+            <input formControlName="adress" class="form-control" minlength="5" placeholder="Endereço" autocomplete="off">
           </mt-input-container>
         </div>
         <div class="col-sm-3 col-xs-6">
             <mt-input-container errorMessage="Obrigatório e somente numeros" label="Número">
-              <input type="text" class="form-control" name="number" ngModel autocomplete="false" pattern="^[0-9]*$" required id="inputSuccess" placeholder="Número">  
+              <input type="text" class="form-control" formControlName="number" autocomplete="false"  id="inputSuccess" placeholder="Número">  
             </mt-input-container>
         </div>
         <div class="col-sm-3 col-xs-6">
           <mt-input-container label="Complemento">
-              <input type="text" class="form-control" name="optionalAdress" ngModel id="inputSuccess" placeholder="Complemento">
+              <input type="text" class="form-control" formControlName="optionalAdress" id="inputSuccess" placeholder="Complemento">
           </mt-input-container>
         </div>
         <!-- /.col -->
@@ -58,7 +86,7 @@
           <p class="lead">Formas de Pagamento:</p>
 
           <div class="form-group">
-            <mt-radio [options]="paymentOptions" name="paymentOption" ngModel required></mt-radio>
+            <mt-radio [options]="paymentOptions" formControlName="paymentOption"></mt-radio>
           </div>
 
         </div>
@@ -76,7 +104,7 @@
 
     <div class="row">
       <div class="col-xs-12">
-        <button (click)="checkOrder(form.value)"  href="order-summary.html" class="btn btn-success pull-right" [disabled]="!form.valid || cartItems().length === 0" ><i class="fa fa-credit-card"></i> Concluir
+        <button (click)="checkOrder(orderForm.value)"  href="order-summary.html" class="btn btn-success pull-right" [disabled]="!orderForm.valid || cartItems().length === 0" ><i class="fa fa-credit-card"></i> Concluir
           Pedido
         </button>
       </div>
