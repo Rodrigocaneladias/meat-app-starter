@@ -8,12 +8,15 @@ import { RatingComponent } from './rating/rating.component';
 import { ShoppingCartService } from '../restaurant-detail/shopping-cart/shopping-cart.service';
 import { OrderService } from '../order/order.service';
 import { RestaurantService } from '../restaurants/restaurant/restaurant.service';
+import { SnackbarComponent } from './messages/snackbar/snackbar.component';
+import { NotificationService } from './messages/notification.service';
 
 @NgModule({
     declarations:[
         InputTextComponent,
         RadioComponent,
-        RatingComponent
+        RatingComponent,
+        SnackbarComponent
     ],
     imports: [
         FormsModule,
@@ -24,6 +27,7 @@ import { RestaurantService } from '../restaurants/restaurant/restaurant.service'
         InputTextComponent,
         RadioComponent,
         RatingComponent,
+        SnackbarComponent,
         FormsModule,
         ReactiveFormsModule,
         CommonModule
@@ -37,7 +41,8 @@ export class CommonModulePersonal{
             providers:[
                 ShoppingCartService,
                 OrderService,
-                RestaurantService
+                RestaurantService,
+                NotificationService
             ]
         }
     }
